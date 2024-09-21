@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DBTarefaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="TB_Tarefa">
+    <Key>
+      <PropertyRef Name="IDTarefa" />
+    </Key>
+    <Property Name="IDTarefa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descricao" Type="varchar" MaxLength="1000" Nullable="false" />
+    <Property Name="DataTarefa" Type="datetime" Nullable="false" />
+    <Property Name="IDUSU" Type="int" />
+  </EntityType>
+  <EntityType Name="Tb_Usuario">
+    <Key>
+      <PropertyRef Name="IDUsu" />
+    </Key>
+    <Property Name="IDUsu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="varchar" MaxLength="1000" Nullable="false" />
+    <Property Name="Senha" Type="varchar" MaxLength="150" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__TB_Tarefa__IDUSU__38996AB5">
+    <End Role="Tb_Usuario" Type="Self.Tb_Usuario" Multiplicity="0..1" />
+    <End Role="TB_Tarefa" Type="Self.TB_Tarefa" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tb_Usuario">
+        <PropertyRef Name="IDUsu" />
+      </Principal>
+      <Dependent Role="TB_Tarefa">
+        <PropertyRef Name="IDUSU" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DBTarefaModelStoreContainer">
+    <EntitySet Name="TB_Tarefa" EntityType="Self.TB_Tarefa" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tb_Usuario" EntityType="Self.Tb_Usuario" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__TB_Tarefa__IDUSU__38996AB5" Association="Self.FK__TB_Tarefa__IDUSU__38996AB5">
+      <End Role="Tb_Usuario" EntitySet="Tb_Usuario" />
+      <End Role="TB_Tarefa" EntitySet="TB_Tarefa" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

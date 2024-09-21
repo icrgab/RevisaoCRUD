@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DBTarefaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="TB_Tarefa">
+    <Key>
+      <PropertyRef Name="IDTarefa" />
+    </Key>
+    <Property Name="IDTarefa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descricao" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DataTarefa" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IDUSU" Type="Int32" />
+    <NavigationProperty Name="Tb_Usuario" Relationship="Self.FK__TB_Tarefa__IDUSU__38996AB5" FromRole="TB_Tarefa" ToRole="Tb_Usuario" />
+  </EntityType>
+  <EntityType Name="Tb_Usuario">
+    <Key>
+      <PropertyRef Name="IDUsu" />
+    </Key>
+    <Property Name="IDUsu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nome" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Senha" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="TB_Tarefa" Relationship="Self.FK__TB_Tarefa__IDUSU__38996AB5" FromRole="Tb_Usuario" ToRole="TB_Tarefa" />
+  </EntityType>
+  <Association Name="FK__TB_Tarefa__IDUSU__38996AB5">
+    <End Role="Tb_Usuario" Type="Self.Tb_Usuario" Multiplicity="0..1" />
+    <End Role="TB_Tarefa" Type="Self.TB_Tarefa" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tb_Usuario">
+        <PropertyRef Name="IDUsu" />
+      </Principal>
+      <Dependent Role="TB_Tarefa">
+        <PropertyRef Name="IDUSU" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DBTarefaEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="TB_Tarefa" EntityType="Self.TB_Tarefa" />
+    <EntitySet Name="Tb_Usuario" EntityType="Self.Tb_Usuario" />
+    <AssociationSet Name="FK__TB_Tarefa__IDUSU__38996AB5" Association="Self.FK__TB_Tarefa__IDUSU__38996AB5">
+      <End Role="Tb_Usuario" EntitySet="Tb_Usuario" />
+      <End Role="TB_Tarefa" EntitySet="TB_Tarefa" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
